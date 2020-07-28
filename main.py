@@ -5,7 +5,7 @@ import os
 import sys
 
 # 自分のBotのアクセストークンに置き換えてください
-TOKEN = 'THi5IsDuMMyaCCesSTOK3n00.Cl2FMQ.ThIsi5DUMMyAcc3s5ToKen0000'
+TOKEN = ''
 voice = None
 
 # 接続に必要なオブジェクトを生成
@@ -96,4 +96,4 @@ async def on_ready():
 
 
 # Botの起動とDiscordサーバーへの接続
-client.run("NzM0MDExNjY2Nzg1ODk0NDUx.XxLg1A.AiyAELWMHip9XGRjC4YIKDlb4zM")
+client.run(TOKEN)
