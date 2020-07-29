@@ -27,8 +27,13 @@ async def on_message(message):
     if message.content == '<<neko':
         await message.channel.send('にゃーん')
 
+    if message.content == '太郎':
+        message.author = client.get_user(533256175123300393)
+        mention = message.author.mention
+        await message.channel.send(mention + 'fate')
+
     if message.content == "<<help":
-        await message.channel.send("```\n___コマンド一覧___\n<<neko--にゃーん\njoin or jn--bot入室\nleave or lv--退出\n<<down--bot停止\nYouTube_URL--音楽リクエスト\n<<askii_art--NecoBot\n```")
+        await message.channel.send("```\n___コマンド一覧___\n<<neko--にゃーん\n太郎--太郎にメンション\njoin or jn--bot入室\nleave or lv--退出\n<<down--bot停止\nYouTube_URL--音楽リクエスト\n<<askii_art--NecoBot\n```")
 
     if message.content == '<<anison':
         await message.channel.send(";;p " + url)
@@ -37,10 +42,13 @@ async def on_message(message):
         await message.channel.send("```" + askii_art1 + "```")
 
     if message.content == ("<<down"):
-        channel = client.get_channel(botchannel)
-        await channel.send("終了中～" + kaomozi_1)
-        await client.logout()
-        await sys.exit()
+        if message.author.guild_permissions.administrator:
+            channel = client.get_channel(botchannel)
+            await channel.send("終了中～" + kaomozi_1)
+            await client.logout()
+            await sys.exit()
+        else:
+            await message.channel.send(あたに権限がありません)
 
     if message.content.startswith("https://youtu.be/"):
         channel_txt = client.get_channel(637253650258984967)
