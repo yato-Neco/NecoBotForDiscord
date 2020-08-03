@@ -51,16 +51,34 @@ async def on_message(message):
             await message.channel.send(あたに権限がありません)
 
     if message.content.startswith("https://youtu.be/"):
-        channel_txt = client.get_channel(637253650258984967)
-        message.author = client.get_user(348386897795612672)
-        await channel_txt.send(";;p " + message.content)
+        channel = [message.id for message in message.author.voice.channel.members]
+        if (client.user.id in channel):
+            channel_txt = client.get_channel(637253650258984967)
+            message.author = client.get_user(348386897795612672)
+            await channel_txt.send(";;p " + message.content)
+        else:
+            voice_state = message.author.voice
+            channel = voice_state.channel
+            await channel.connect()
+            print("connected to:",channel.name)
+            channel_txt = client.get_channel(637253650258984967)
+            message.author = client.get_user(348386897795612672)
+            await channel_txt.send(";;p " + message.content)
 
     if message.content.startswith("https://www.youtube.com/"):
-        channel_txt = client.get_channel(637253650258984967)
-        message.author = client.get_user(348386897795612672)
-        await channel_txt.send(";;p " + message.content)
-
-
+        channel = [message.id for message in message.author.voice.channel.members]
+        if (client.user.id in channel):
+            channel_txt = client.get_channel(637253650258984967)
+            message.author = client.get_user(348386897795612672)
+            await channel_txt.send(";;p " + message.content)
+        else:
+            voice_state = message.author.voice
+            channel = voice_state.channel
+            await channel.connect()
+            print("connected to:",channel.name)
+            channel_txt = client.get_channel(637253650258984967)
+            message.author = client.get_user(348386897795612672)
+            await channel_txt.send(";;p " + message.content)
 
     if message.content == ("join") or message.content == ("jn"):
         voice_state = message.author.voice
@@ -96,7 +114,7 @@ async def greet():
 async def on_ready():
     print(askii_art1)
     print('Logged in as')
-    print("ver-1.5")
+    print("ver-1.7")
     print(client.user.name)
     print(client.user.id)
     print('------')
