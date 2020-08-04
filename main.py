@@ -5,7 +5,7 @@ import os
 import sys
 
 # 自分のBotのアクセストークンに置き換えてください
-TOKEN = ''
+TOKEN = os.environ["DISCORD_BOT_TOKEN"]
 voice = None
 
 # 接続に必要なオブジェクトを生成
