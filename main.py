@@ -5,7 +5,7 @@ import os
 import sys
 
 # 自分のBotのアクセストークンに置き換えてください
-TOKEN = "NzM0MDExNjY2Nzg1ODk0NDUx.XxLfog.SO0v45hGVMakZCPiMSGoWOkGin4"
+TOKEN = os.environ["DISCORD_BOT_TOKEN"]
 voice = None
 
 # 接続に必要なオブジェクトを生成
@@ -71,7 +71,7 @@ async def on_message(message):
             channelm = client.get_channel(740892276154171402)
             embed = discord.Embed(description="音楽のリクエストは" + channelm.mention + "ここへ", color=0x2e3cff)
             await message.channel.send(embed=embed)
-
+            
     if message.content.startswith("https://www.youtube.com/"):
         if message.channel.id == channelmusic_id:
             channel = [message.id for message in message.author.voice.channel.members]
