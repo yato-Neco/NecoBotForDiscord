@@ -2,10 +2,11 @@
 import discord
 from discord.ext import commands
 import os
-import sys
+import sys, traceback
 
 # 自分のBotのアクセストークンに置き換えてください
-TOKEN = os.environ["DISCORD_BOT_TOKEN"]
+TOKEN = "NzM0MDExNjY2Nzg1ODk0NDUx.XxLfog.c_HZjCQBJkaxprF7Y0V7wDBIE8U"
+#TOKEN = os.environ["DISCORD_BOT_TOKEN"]
 voice = None
 
 # 接続に必要なオブジェクトを生成
@@ -134,7 +135,33 @@ async def on_message(message):
         await voice_client.disconnect()
         await message.channel.send("ボイスチャンネルから切断しました。")
 
+    
 
+
+@client.event
+async def on_vc_start(member,channel):
+    print(f"{member.name}が{channel.name}でボイスチャットを開始しました。")
+
+
+@client.event
+async def on_vc_end(member,channel):
+    print(f"{member.name}が{channel.name}のボイスチャットを終了しました。")
+    
+
+@client.event
+async def on_voice_state_update(member,before,after):
+    if before.channel != after.channel:
+        # before.channelとafter.channelが異なるなら入退室
+        if after.channel and len(after.channel.members) == 1:
+            # もし、ボイスチャットが開始されたら
+            print("a")
+            client.dispatch("vc_start",member,after.channel) #発火！
+
+        if before.channel and len(before.channel.members) == 0:
+            # もし、ボイスチャットが終了したら
+            print("b")
+            await member.guild.voice_client.disconnect()
+            client.dispatch("vc_end",member,before.channel) #発火！
 # 任意のチャンネルで挨拶する非同期関数を定義
 async def greet():
     channel = client.get_channel(botchannel)
