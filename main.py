@@ -5,8 +5,8 @@ import os
 import sys, traceback
 
 # 自分のBotのアクセストークンに置き換えてください
-TOKEN = "NzM0MDExNjY2Nzg1ODk0NDUx.XxLfog.c_HZjCQBJkaxprF7Y0V7wDBIE8U"
-#TOKEN = os.environ["DISCORD_BOT_TOKEN"]
+#TOKEN = ""
+TOKEN = os.environ["DISCORD_BOT_TOKEN"]
 voice = None
 
 # 接続に必要なオブジェクトを生成
