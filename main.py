@@ -4,7 +4,7 @@ from discord.ext import commands
 import os
 import sys, traceback
 
-# 自分のBotのアクセストークンに置き換えてください
+
 #TOKEN = ""
 TOKEN = os.environ["DISCORD_BOT_TOKEN"]
 voice = None
@@ -152,15 +152,16 @@ async def on_vc_end(member,channel):
 async def on_voice_state_update(member,before,after):
     if before.channel != after.channel:
         # before.channelとafter.channelが異なるなら入退室
-        if after.channel and len(after.channel.members) == 1:
+        if after.channel:
             # もし、ボイスチャットが開始されたら
             print("a")
             client.dispatch("vc_start",member,after.channel) #発火！
 
-        if before.channel and len(before.channel.members) == 0:
+        if before.channel:
             # もし、ボイスチャットが終了したら
             print("b")
-            await member.guild.voice_client.disconnect()
+            if len(before.channel.members) == 1:
+                await member.guild.voice_client.disconnect()
             client.dispatch("vc_end",member,before.channel) #発火！
 # 任意のチャンネルで挨拶する非同期関数を定義
 async def greet():
@@ -173,7 +174,7 @@ async def greet():
 async def on_ready():
     print(askii_art1)
     print('Logged in as')
-    print("ver-1.7")
+    print("ver-2.0")
     print(client.user.name)
     print(client.user.id)
     print('------')
