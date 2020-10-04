@@ -5,7 +5,7 @@ import os
 import sys, traceback
 
 
-#TOKEN = ""
+#TOKEN = ""a
 TOKEN = os.environ["DISCORD_BOT_TOKEN"]
 voice = None
 
