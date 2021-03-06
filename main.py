@@ -176,9 +176,9 @@ async def on_voice_state_update(member,before,after):
         role = discord.utils.get(member.guild.roles, name=set_mention_name)
         await member.add_roles(role)
     elif before.channel.name == amongus:
-            remove_mention_name = before.channel.name
-            role = discord.utils.get(member.guild.roles, name=remove_mention_name)
-            await member.remove_roles(role)
+        remove_mention_name = before.channel.name
+        role = discord.utils.get(member.guild.roles, name=remove_mention_name)
+        await member.remove_roles(role)
 
     if before.channel != after.channel:
         # before.channelとafter.channelが異なるなら入退室
