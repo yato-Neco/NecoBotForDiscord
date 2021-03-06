@@ -6,8 +6,8 @@ import os
 import sys, traceback
 
 
-TOKEN = "NzM0MDExNjY2Nzg1ODk0NDUx.XxLfog.BDPtGsTGKvx95wE9f1uZ1hUyrUk"
-#TOKEN = os.environ["DISCORD_BOT_TOKEN"]
+#TOKEN = ""
+TOKEN = os.environ["DISCORD_BOT_TOKEN"]
 voice = None
 
 # 接続に必要なオブジェクトを生成
