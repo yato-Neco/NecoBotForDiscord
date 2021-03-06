@@ -171,16 +171,14 @@ async def on_vc_end(member,channel):
 
 @client.event
 async def on_voice_state_update(member,before,after):
-    if after.channel.name == amongus:
-        if not before.channel and after.channel:
-            set_mention_name = after.channel.name
-            role = discord.utils.get(member.guild.roles, name=set_mention_name)
-            await member.add_roles(role)
-        elif before.channel.name == amongus:
-            if before.channel and not after.channel:
-                remove_mention_name = before.channel.name
-                role = discord.utils.get(member.guild.roles, name=remove_mention_name)
-                await member.remove_roles(role)
+    if not before.channel and after.channel:
+        set_mention_name = after.channel.name
+        role = discord.utils.get(member.guild.roles, name=set_mention_name)
+        await member.add_roles(role)
+    elif before.channel.name == amongus:
+            remove_mention_name = before.channel.name
+            role = discord.utils.get(member.guild.roles, name=remove_mention_name)
+            await member.remove_roles(role)
 
     if before.channel != after.channel:
         # before.channelとafter.channelが異なるなら入退室
