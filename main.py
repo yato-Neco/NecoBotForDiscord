@@ -6,8 +6,8 @@ import os
 import sys, traceback
 
 
-#TOKEN = ""
-TOKEN = os.environ["DISCORD_BOT_TOKEN"]
+TOKEN = "NzM0MDExNjY2Nzg1ODk0NDUx.XxLfog.BDPtGsTGKvx95wE9f1uZ1hUyrUk"
+#TOKEN = os.environ["DISCORD_BOT_TOKEN"]
 voice = None
 
 # 接続に必要なオブジェクトを生成
@@ -75,14 +75,14 @@ async def on_message(message):
             embed = discord.Embed(description="音楽のリクエストは" + channelm.mention + "ここへ", color=0x2e3cff)
             await message.channel.send(embed=embed)
             
-    if message.content.startswith("https://www.youtube.com/"):
-        if message.channel.id == channelmusic_id:
-            channel = [message.id for message in message.author.voice.channel.members]
-            if (client.user.id in channel):
+    if message.content.startswith("https://www.youtube.com/"): #http://www.youtube...から始まる文字検出
+        if message.channel.id == channelmusic_id: #送られたメッセージがmusicリクエストかを判断
+            channel = [message.id for message in message.author.voice.channel.members] #送った対象のボイスチャンネルを代入
+            if (client.user.id in channel): #もし、対象が同じボイスチャンネルチャンネルいるならば
                 channel_txt = client.get_channel(637253650258984967)
                 message.author = client.get_user(348386897795612672)
                 await channel_txt.send(";;p " + message.content)
-            else:
+            else: #同じボイスチャンネルいない場合、同じボイスチャンネルに入る
                 voice_state = message.author.voice
                 channel = voice_state.channel
                 await channel.connect()
@@ -95,7 +95,7 @@ async def on_message(message):
             embed = discord.Embed(description="音楽のリクエストは" + channelm.mention + "ここへ", color=0x2e3cff)
             await message.channel.send(embed=embed)
 
-    if message.content.startswith("https://m.youtube.com/"):
+    if message.content.startswith("https://m.youtube.com/"): #上記同様
         if message.channel.id == channelmusic_id:
             channel = [message.id for message in message.author.voice.channel.members]
             if (client.user.id in channel):
@@ -204,7 +204,7 @@ async def greet():
 async def on_ready():
     print(askii_art1)
     print('Logged in as')
-    print("ver-2.0")
+    print("ver-3.0")
     print(client.user.name)
     print(client.user.id)
     print('------')
