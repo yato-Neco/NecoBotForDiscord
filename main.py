@@ -191,7 +191,6 @@ async def on_voice_state_update(member,before,after):
             # もし、ボイスチャットが終了したら
             if len(before.channel.members) == 1:
                 print("b")
-                client.dispatch("vc_end",member,before.channel)
             client.dispatch("vc_end",member,before.channel) #発火！
 # 任意のチャンネルで挨拶する非同期関数を定義
 async def greet():
