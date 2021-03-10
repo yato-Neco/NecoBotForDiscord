@@ -2,6 +2,7 @@
 import discord
 import asyncio
 from discord.ext import commands
+import datetime
 import os
 import sys, traceback
 
@@ -17,6 +18,8 @@ kaomozi_1 = "（´・ω・`）.;:…（´・ω...:.;::..（´・;::: .:.;: ｻ�
 botchannel = 637253650258984967
 channelmusic_id = 740892276154171402
 amongus = 815930829720780810
+global end
+end = None
 
 
 
@@ -155,22 +158,32 @@ async def on_message(message):
 @client.event
 async def on_vc_start(member,channel):
     print(f"{member.name}が{channel.name}でボイスチャットを開始しました。")
+    channel_txt = client.get_channel(637253650258984967)
+    now = datetime.datetime.now()
+    await channel_txt.send("[time-{0:%YY/%mM/%dd/%Hh/%Mm/%Ss}]".format(now) + f" {member.name}が{channel.name}でボイスチャットを開始しました。")
 
 
 
 
 @client.event
 async def on_vc_end(member,channel):
+
+
     print(f"{member.name}が{channel.name}のボイスチャットを終了しました。")
     voice_client = member.guild.voice_client
-    if voice_client:
-        await voice_client.disconnect()
+    channel_txt = client.get_channel(637253650258984967)
+    now = datetime.datetime.now()
+    await channel_txt.send("[time-{0:%YY/%mM/%dd/%Hh/%Mm/%Ss}]".format(now) + f" {member.name}が{channel.name}でボイスチャットを終了しました。")
+    if end == True:
+        if voice_client:
+            await voice_client.disconnect()
 
 
 
 
 @client.event
 async def on_voice_state_update(member,before,after):
+    
     if not before.channel and after.channel:
         set_mention_name = after.channel.name
         role = discord.utils.get(member.guild.roles, name=set_mention_name)
@@ -180,19 +193,29 @@ async def on_voice_state_update(member,before,after):
             role = discord.utils.get(member.guild.roles, name=remove_mention_name)
             await member.remove_roles(role)
 
+
     if before.channel != after.channel:
         # before.channelとafter.channelが異なるなら入退室
         if after.channel:
             # もし、ボイスチャットが開始されたら
             print("a")
-            client.dispatch("vc_start",member,after.channel) #発火！
+            client.dispatch("vc_start",member,after.channel) #発火！  
+            set_mention_name = after.channel.name
+            role = discord.utils.get(member.guild.roles, name=set_mention_name)
+            await member.add_roles(role)     
 
         if before.channel:
+            emove_mention_name = before.channel.name
+            role = discord.utils.get(member.guild.roles, name="AmongUS")
+            await member.remove_roles(role)
             # もし、ボイスチャットが終了したら
             if len(before.channel.members) == 1:
                 print("b")
-                client.dispatch("vc_end",member,before.channel)
-             #発火！
+                end = True
+                client.dispatch("vc_end",member,before.channel)#発火！
+            else:
+                end = False
+            client.dispatch("vc_end",member,before.channel)#発火
 # 任意のチャンネルで挨拶する非同期関数を定義
 async def greet():
     channel = client.get_channel(botchannel)
