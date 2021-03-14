@@ -35,10 +35,10 @@ async def on_message(message):
     if message.content == '<<neko':
         await message.channel.send('にゃーん')
 
-    if message.content == '太郎':
-        message.author = client.get_user(533256175123300393)
-        mention = message.author.mention
-        await message.channel.send(mention + 'fate')
+    #if message.content == '太郎':
+     #   message.author = client.get_user(533256175123300393)
+     #   mention = message.author.mention
+     #  await message.channel.send(mention + 'fate')
 
     if message.content == "<<help":
         await message.channel.send("```\n___コマンド一覧___\n<<neko--にゃーん\n太郎--太郎にメンション\njoin or jn--bot入室\nleave or lv--退出\n<<down--bot停止\nYouTube_URL--音楽リクエスト\n<<askii_art--NecoBot\n```")
@@ -118,6 +118,27 @@ async def on_message(message):
             embed = discord.Embed(description="音楽のリクエストは" + channelm.mention + "ここへ", color=0x2e3cff)
             await message.channel.send(embed=embed)
 
+    if message.content.startswith("https://youtube.com/playlist")
+        if message.channel.id == channelmusic_id:
+            channel = [message.id for message in message.author.voice.channel.members]
+            if (client.user.id in channel):
+                channel_txt = client.get_channel(637253650258984967)
+                message.author = client.get_user(348386897795612672)
+                await channel_txt.send(";;p "+ message.content)
+            else:
+                voice_state = message.author.voice
+                channel = voice_state.channel
+                await channel.connect()
+                print("connected tp:",channel.name)
+                channel_txt = client.get_channel(637253650258984967)
+                message.author = client.get_user(348386897795612672)
+                await channel_txt.send(";;p " + message.content)
+        else:
+            channelm = client.get_channel(740892276154171402)
+            embed = discord.Embed(description="音楽のリクエストは" + channelm.mention + "ここへ", color=0x2e3cff)
+            await message.channel.send(embed=embed)
+
+
     if message.content == ("join") or message.content == ("jn"):
         voice_state = message.author.voice
         if (not voice_state) or (not voice_state.channel):
@@ -151,18 +172,12 @@ async def on_message(message):
 
 
 
-
-    
-
-
 @client.event
 async def on_vc_start(member,channel):
     print(f"{member.name}が{channel.name}でボイスチャットを開始しました。")
     channel_txt = client.get_channel(637253650258984967)
     now = datetime.datetime.now()
     await channel_txt.send("[time-{0:%YY/%mM/%dd/%Hh/%Mm/%Ss}]".format(now) + f" {member.name}が{channel.name}でボイスチャットを開始しました。")
-
-
 
 
 @client.event
@@ -227,7 +242,7 @@ async def greet():
 async def on_ready():
     print(askii_art1)
     print('Logged in as')
-    print("ver-3.0")
+    print("ver-3.1b")
     print(client.user.name)
     print(client.user.id)
     print('------')
