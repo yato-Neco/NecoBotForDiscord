@@ -118,7 +118,7 @@ async def on_message(message):
             embed = discord.Embed(description="音楽のリクエストは" + channelm.mention + "ここへ", color=0x2e3cff)
             await message.channel.send(embed=embed)
 
-    if message.content.startswith("https://youtube.com/playlist")
+    if message.content.startswith("https://youtube.com/playlist"):
         if message.channel.id == channelmusic_id:
             channel = [message.id for message in message.author.voice.channel.members]
             if (client.user.id in channel):
